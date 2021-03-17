@@ -51,6 +51,11 @@ public class ViewController {
         System.out.println("Starting");
     }
 
+    public static List<Book> getBooks() {
+        return books;
+    }
+
+
     public static boolean load(){
         DocumentBuilder builder = null;
         try {

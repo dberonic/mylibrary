@@ -65,9 +65,10 @@
 
             <td th:switch="${book.available}">
                 <p th:case="true">
-                    <input type="button" class="borrow btn btn-outline-success" name ="action" value="Borrow" >
-<!--                    <button type="button" class="btn btn-outline-success">Borrow</button></p>-->
-                <p th:case="false"><button type="button" class="btn btn-outline-success">Return</button></p>
+                    <input type="button" class="borrow btn btn-outline-success"
+                           th:name="${book.id}"  value="Borrow" >
+                <p th:case="false"><input type="button" class="borrow btn btn-outline-danger"
+                                           th:name="${book.id}" value="Return"></p>
                 <p th:case="*"></p>
             </td>
 
@@ -91,7 +92,7 @@ $(document).ready( function () {
 
         $.ajax({
             type: 'GET',
-            url: '/api/ajaxrest/demo1',
+            url: '/books/demo1/'+ $(button).attr("name"),
             success: function(result){
                 console.log("Demo1");
                 console.log(result);
@@ -108,9 +109,11 @@ $(document).ready( function () {
             }
         });
         } else {
+        console.log($(button).attr("name"));
+
              $.ajax({
             type: 'GET',
-            url: '/api/ajaxrest/demo2',
+            url: '/books/demo2/' + $(button).attr("name"),
             success: function(result){
                 console.log("Demo2");
                 console.log(result);
