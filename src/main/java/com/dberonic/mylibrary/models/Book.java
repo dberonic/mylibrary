@@ -24,7 +24,7 @@ public class Book {
         this.publishDate = publishDate;
         this.description = description;
         this.available = true;
-        borrowedBy = null;
+        this.borrowedBy = null;
     }
 
     public String getBorrowedBy() {

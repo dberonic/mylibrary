@@ -27,6 +27,7 @@ public class BookController {
             if(bookId.equals( books.get(i).getId())){
                     System.out.println("Book found");
                     books.get(i).setAvailable(false);
+                    books.get(i).setBorrowedBy("user");
                 }
             }
 
@@ -52,6 +53,8 @@ public class BookController {
             if(bookId.equals( books.get(i).getId())){
                 System.out.println("Book found");
                 books.get(i).setAvailable(true);
+                books.get(i).setBorrowedBy(null);
+
             }
         }
 
