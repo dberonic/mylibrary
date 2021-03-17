@@ -50,6 +50,8 @@
             <th scope="col">Publish Data</th>
             <th scope="col">Description</th>
             <th scope="col">Available</th>
+            <th sec:authorize="hasRole('ADMIN')">Borrower</th>
+
         </tr>
         </thead>
         <tbody>
@@ -70,6 +72,8 @@
                                            th:name="${book.id}" value="Return"></p>
                 <p th:case="*"></p>
             </td>
+            <td sec:authorize="hasRole('ADMIN')" th:text="${book.borrowedBy}">Avaiable</td>
+
         </tr>
 
         </tbody>
