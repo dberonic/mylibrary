@@ -65,7 +65,7 @@
 
             <td th:switch="${book.available}">
                 <p th:case="true">
-                    <input type="button" class="btn btn-outline-success" name ="action" value="save" >
+                    <input type="button" class="borrow btn btn-outline-success" name ="action" value="Borrow" >
 <!--                    <button type="button" class="btn btn-outline-success">Borrow</button></p>-->
                 <p th:case="false"><button type="button" class="btn btn-outline-success">Return</button></p>
                 <p th:case="*"></p>
@@ -83,7 +83,57 @@
 <script>
 $(document).ready( function () {
     $('#book-table').DataTable();
+
+    $('.borrow').click(function(){
+
+        let button = this;
+        if($(this).val() == "Borrow"){
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/ajaxrest/demo1',
+            success: function(result){
+                console.log("Demo1");
+                console.log(result);
+                if(result == "OK"){
+                    console.log(this);
+                    console.log(button);
+                    $(button).val("Return");
+                    $(button).removeClass("btn-outline-success");
+                    $(button).addClass("btn-outline-danger");
+                } else {
+                    alert("Your request failed/");
+                    return;
+                }
+            }
+        });
+        } else {
+             $.ajax({
+            type: 'GET',
+            url: '/api/ajaxrest/demo2',
+            success: function(result){
+                console.log("Demo2");
+                console.log(result);
+                if(result == "OK2"){
+                    console.log(this);
+                    console.log(button);
+                    $(button).val("Borrow");
+                    $(button).removeClass("btn-outline-danger");
+                    $(button).addClass("btn-outline-success");
+                } else {
+                    alert("Your request failed/");
+                    return;
+                }
+            }
+        });
+        }
+
     });
+
+    });
+
+
+
 </script>
 </body>
 </html>

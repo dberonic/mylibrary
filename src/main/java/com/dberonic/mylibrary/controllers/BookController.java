@@ -6,6 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MimeType;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -24,9 +26,33 @@ import java.util.UUID;
 
 //@RestController
 //@RequestMapping(value = "/books")
+@RestController
+@RequestMapping("api/ajaxrest")
 public class BookController {
 
+    @RequestMapping(value = "demo1",
+            method = RequestMethod.GET,
+            produces = {MimeTypeUtils.TEXT_PLAIN_VALUE})
+    public ResponseEntity<String> book(){
+        try {
+            ResponseEntity<String> responseEntity = new ResponseEntity<String>("OK", HttpStatus.OK);
+            return responseEntity;
+        } catch (Exception e) {
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
+    @RequestMapping(value = "demo2",
+            method = RequestMethod.GET,
+            produces = {MimeTypeUtils.TEXT_PLAIN_VALUE})
+    public ResponseEntity<String> book2(){
+        try {
+            ResponseEntity<String> responseEntity = new ResponseEntity<String>("OK2", HttpStatus.OK);
+            return responseEntity;
+        } catch (Exception e) {
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
 
