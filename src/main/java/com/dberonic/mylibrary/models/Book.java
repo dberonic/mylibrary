@@ -12,9 +12,22 @@ public class Book {
     private boolean available;
     private String borrowedBy;
 
+    /**
+     * Default constructor
+     */
     public Book() {
     }
 
+    /**
+     *
+     * @param id BookId
+     * @param author Book author
+     * @param title Book title
+     * @param genre Book genre
+     * @param price Book price
+     * @param publishDate Date of publishing
+     * @param description Book Description
+     */
     public Book(String id, String author, String title, String genre, String price, String publishDate, String description) {
         this.id = id;
         this.author = author;

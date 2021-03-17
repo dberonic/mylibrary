@@ -14,6 +14,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -40,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("user2")
                 .password(passwordEncoder().encode("user2"))
-                .roles("USER")
+                .roles("MANAGER")
                 .and()
                 .withUser("admin")
                 .password(passwordEncoder().encode("admin"))

@@ -1,6 +1,8 @@
 package com.dberonic.mylibrary.controllers;
 
 import com.dberonic.mylibrary.models.Book;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,19 +33,37 @@ public class ViewController {
         return "index";
     }
 
-//    @RequestMapping("/error")
-//    public String error() {
-//        return "error";
-//    }
 
     @RequestMapping("/books")
     public String books(Model model) {
-        model.addAttribute("books", books);
+
+        // gets the user role
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        // sets the model for admin
+        if(username.equals("admin")){
+            model.addAttribute("books", books);
+        } else { // sets the model for all other users
+            List<Book> avaiableBooks = new ArrayList<>();
+
+            // filteres borrowed books
+            for(int i = 0; i < books.size(); i++){
+                if(books.get(i).getBorrowedBy().equals("Available") || books.get(i).getBorrowedBy().equals(username)){
+                    avaiableBooks.add(books.get(i));
+                }
+            }
+            model.addAttribute("books", avaiableBooks);
+        }
+
         return "books";
     }
-
-
-
 
     private static final List<Book> books = new ArrayList<>();
     static {
@@ -55,7 +75,10 @@ public class ViewController {
         return books;
     }
 
-
+    /**
+     * Loads the data from the xml file into the model
+     * @return success
+     */
     public static boolean load(){
         DocumentBuilder builder = null;
         try {
@@ -91,8 +114,6 @@ public class ViewController {
                 books.add(new Book(id,author, title, genre, price, publish_date, description));
             }
         }
-
-
         return true;
     }
 
